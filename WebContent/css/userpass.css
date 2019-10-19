@@ -1,0 +1,91 @@
+@charset "ISO-8859-1";
+
+	body{
+		background: #FFFFFF; 
+	}
+	#login{
+		width: 1100px;
+		height: 700px;
+		background: #1B84CF;
+		margin:50px auto;
+		position: relative;
+		outline-style: solid;
+	}
+	#text{
+ 		text-align:center;
+		font-size:45px;
+		color:#FFFFFF;
+		font-family:Microsoft YaHei;
+		font-weight: bold;
+		 top: 40px;
+		 position:relative;
+	}
+#user{
+		top: 50px;
+		margin-left:100px;
+		position:relative;
+		text-align:center;
+	}
+	#text2{
+		font-size:40px;
+		font-family:Times New Roman;
+		font-weight: bold;
+		top: 50px;
+		position:relative;
+		text-align:center;
+	}
+	#login form p{
+		text-align: center;
+	}
+	#submit{
+		width: 232px;
+		height: 30px;
+		background: rgba(0,0,0,.1);
+		border:solid #ccc 1px;
+		border-radius: 3px;
+		
+	}
+	#submit:hover{
+		cursor: pointer;
+		background:#D8D8D8;
+	}
+	#test{
+		width: 700px;
+		height: 400px;
+		background: #FFFFFF;
+		margin:80px auto;
+	}
+	#errorMsg {
+  	text-align: center;
+  	color: #FF0000;
+  	font-size: 2em;
+	}
+	
+	
+	input[type="text"]{
+		width: 350px;
+		height: 30px;
+		border:solid #ccc 1px;
+		border-radius: 3px;
+		background: rgba(0,0,0,.1);
+		margin:5px auto;
+	}
+	input[type="password"]{
+		width: 350px;
+		height: 30px;
+		border:solid #ccc 1px;
+		border-radius: 3px;
+		background: rgba(0,0,0,.1);
+		margin:5px auto;
+	}
+	input{
+	  font-size: 15px;
+	  font-color:black;
+	  padding-left:15px;
+	}
+#ads{
+	    margin-left:500px;
+		position:relative;
+}
+   
+

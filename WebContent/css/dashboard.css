@@ -1,0 +1,184 @@
+body {
+	font-size: 16px;
+	font-family: "Courier New";
+	transition: all linear 0.8s;
+}
+
+img {
+	cursor: pointer;
+}
+
+fieldset {
+	padding: 80px;
+	height: 30%;
+}
+table {
+	background: #EEE;
+	border-collapse: collapse;
+	box-sizing: border-box;
+	margin-bottom: 20px;
+}
+td {
+	width: 160px;
+	font-size: 20px;
+	text-align: center;
+	box-sizing: border-box;
+}
+th {
+	height: 38px;
+	width: 160px;
+	font-size: 22px;
+	background: #F2F3F3;
+	box-sizing: border-box;
+}
+tr.service {
+	font-size: 1px;
+	background: #888;
+	border-width: 0;
+	box-sizing: border-box;
+}
+
+tr:nth-child(odd) {
+	background: #f9f9f9;
+}
+
+tr:nth-child(even) {
+	background:#edf6ff;
+}
+
+.logo_car {
+	width:60px;
+	height: auto;
+}
+
+.logo_car:hover {
+	background-color: #C9F2FF;
+}
+
+.nickname_row {
+	font-size: 22px;
+	margin-bottom: 15px;
+	margin-left: 5px;
+	font-weight: 600;
+}
+
+.detail_view {
+	display: block;
+}
+
+table th:last-child {
+    border-right: none;
+}*/
+.dropdown {
+  position: relative;
+  display: inline-block;
+  font-size:20px;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+a { text-decoration: none} 
+
+
+.detail_view {
+	transition: all linear 0.8s;
+	position: relative;
+}
+
+.ng-hide {
+	height: 0;
+	width: 0;
+	background-color: transparent;
+	top:-200px;
+	left: 200px;
+}
+
+.attribute_pair {
+	display: block;
+	margin-left: 50px;
+	margin-bottom: 10px;
+	font-size: 20px;
+}
+
+.attribute_lbl {
+	display: inline-block;
+	width: 180px;
+}
+
+.attribute_value {
+	display: inline-block;
+	width: 200px;
+	height: 24px;
+	border-radius: 3px;
+	padding: 2px;
+	padding-left: 8px;
+	color: #000;
+	font-weight: 600;
+}
+
+h1 {
+	margin: 50px;
+	font-weight: 900;
+}
+
+div[class$="btn"] {
+	display: inline-block;
+	margin-left: 50px;
+	width: 135px;
+	height: 25px;
+	color: #FFF;
+	background-color: #333333;
+	font-size: 20px;
+	border-radius: 5px;
+	text-align: center;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+div[class$="btn"]:hover {
+	background-color: #AAA;
+}
+
+div[class$="btn"]:active {
+	background-color: #555;
+	width: 140px;
+	height:27px;
+}
+
+.content_container {
+	width: 500px;;
+	border-bottom: #AAA 2px solid;
+	border-top: #AAA 2px solid;
+	padding: 30px;
+	margin-left: 20px;
+}
+
+img {
+	margin-left: 15px;
+}
+
+.car_list {
+	margin-left: 30px;
+	margin-bottom: 15px;
+	border-bottom: #AAA 1px solid;
+	width: 1200px;
+}
+
+.nickname_row {
+	display: inline-block;
+	width: 300px;
+	margin-bottom: 5px;
+}
+
+.first_h3 {
+	margin: 30px;
+	margin-left: 60px;
+}

@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Dashboard Content</title>
+        <link rel="stylesheet" href="css/dashboard.css" type="text/css">
+    </head>
+    <body ng-app="app">
+        <div ng-controller="ctrl">
+            <span ng-model="username"> </span>
+            <div ng-show="dashboard_view">
+                <h3 class="first_h3"><img class="first_pic" src="img/add_icon.png" ng-click="insert_new_car()" title="click to add a new car">&nbsp;&nbsp;Add A New Car</h3>
+                <div ng-repeat="el in carInfo.data" class="car_list">
+                    <img src="img/car_logo.png" class="logo_car" ng-click="setServiceVisible(el.vin)" title="click to see service history">
+                    <span class="nickname_row">Nickname: {{el.nickName}}</span>
+                    <img src="img/edit_icon.png" class="car_detail_btn" ng-click="open_car_view(el)" title="click to view the car"> <img src="img/add_icon.png" title="Add Service" ng-click="insert_new_service(el.vin)">
+                    <div>
+                        <table class="service_list" ng-show="dashboard_view == true && showServiceEntry == el.vin"> 
+                            <tr>
+                                <th></th>
+                                <th>
+                                    <button ng-click="sortBy('type')">Type</button>
+                                    <span class="sortorder" ng-show="propertyName === 'type'" ng-class="{reverse: reverse}"></span>
+                                </th>
+                                <th>
+                                    <button ng-click="sortBy('shop')">Shop</button>
+                                    <span class="sortorder" ng-show="propertyName === 'shop'" ng-class="{reverse: reverse}"></span>
+                                </th>
+                                <th>
+                                    <button ng-click="sortBy('cost')">Cost</button>
+                                    <span class="sortorder" ng-show="propertyName === 'cost'" ng-class="{reverse: reverse}"></span>
+                                </th>
+                                <th>
+                                    <button ng-click="sortBy('service_date')">Service Date</button>
+                                    <span class="sortorder" ng-show="propertyName === 'service_date'" ng-class="{reverse: reverse}"></span>
+                                </th>
+                                <th>
+                                    <button ng-click="sortBy('vin')">Vin #</button>
+                                    <span class="sortorder" ng-show="propertyName === 'vin'" ng-class="{reverse: reverse}"></span>
+                                </th>
+                                <th>
+                                    <button ng-click="sortBy('insrued')">Insured</button>
+                                    <span class="sortorder" ng-show="propertyName === 'insrued'" ng-class="{reverse: reverse}"></span>
+                                </th>
+                            </tr>
+                            <tr ng-repeat="sev in serviceInfo.data | orderBy:propertyName:reverse" ng-show="sev.vin == el.vin && showServiceEntry == sev.vin">
+                                <td><img src="img/edit_icon.png" title="Edit Service" ng-click="editServiceEntry(sev)"></td>
+                                <td>{{sev.type}}</td>
+                                <td>{{sev.shop}}</td>
+                                <td>{{sev.cost}}</td>
+                                <td>{{sev.service_date}}</td>
+                                <td>{{sev.vin}}</td>
+                                <td>{{sev.insured}}</td>
+                                <td><img src="img/add_icon.png" title="Add Service" ng-click="insert_new_service(sev.vin)"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="!dashboard_view && car_view" class="detail_view">
+                <h1>Car detail view</h1>
+                <div class="content_container">
+                    <div class="attribute_pair">
+                        <label class="attribute_lbl" for="edit_year">Year</label> 
+                        <input type="text" id="edit_year" ng-model="selectedCar.year" class="attribute_value" ng-disabled="car_edit_disable">
+                    </div>
+                    <br>
+                    <div class="attribute_pair">
+                        <label class="attribute_lbl" for="edit_make">Make</label> 
+                        <input type="text" id="edit_make" ng-model="selectedCar.make" class="attribute_value" ng-disabled="car_edit_disable">
+                    </div>
+                    <br>
+                    <div class="attribute_pair">
+                        <label class="attribute_lbl" for="edit_model">Model</label> 
+                        <input type="text" id="edit_model" ng-model="selectedCar.model" class="attribute_value" ng-disabled="car_edit_disable">
+                    </div>
+                    <br>
+                    <div class="attribute_pair">
+                        <label class="attribute_lbl" for="edit_mileage">Mileage</label>
+                        <input type="text" id="edit_mileage" ng-model="selectedCar.mileage" class="attribute_value" ng-disabled="car_edit_disable">
+                    </div>
+                    <br>
+                    <div class="attribute_pair">
+                        <label class="attribute_lbl" for="edit_nname">Nickname</label> 
+                        <input type="text" id="edit_nname" ng-model="selectedCar.nickName" class="attribute_value" ng-disabled="car_edit_disable">
+                    </div>
+                    <br>
+                    <div class="attribute_pair">
+                        <label class="attribute_lbl" for="edit_vin">Vin #</label> 
+                        <input type="text" id="edit_vin" ng-model="selectedCar.vin" class="attribute_value" disabled="true">
+                    </div>
+                </div>
+                <br>
+                <div class="cancel_btn" ng-click="car_view_cancel()">Cancel</div>
+                <div class="edit_btn" ng-click="car_edit()" ng-hide="!car_edit_disable">Edit</div>
+                <div class="save_btn" ng-click="car_edit_save()" ng-show="!car_edit_disable">Save</div>
+            </div>
+            <div ng-show="!dashboard_view && car_inserting" class="detail_view">
+                <h1>Add New Car </h1>
+                <div class="content_container">
+                    <div class="attribute_pair">
+                        <label class="attribute_lbl" for="insert_year">Year</label> 
+                        <input type="text" id="insert_year" ng-model="selectedCar.year" class="attribute_value">
+                    </div>
+                    <br>
+                    <div class="attribute_pair">
+                        <label class="attribute_lbl" for="insert_make">Make</label> 
+                        <input type="text" id="insert_make" ng-model="selectedCar.make" class="attribute_value">
+                    </div>
+                    <br>
+                    <div class="attribute_pair">
+                        <label class="attribute_lbl" for="insert_model">Model</label> 
+                        <input type="text" id="insert_model" ng-model="selectedCar.model" class="attribute_value">
+                    </div>
+                    <br>
+                    <div class="attribute_pair">
+                        <label class="attribute_lbl" for="insert_mileage">Mileage</label>
+                        <input type="text" id="insert_mileage" ng-model="selectedCar.mileage" class="attribute_value">
+                    </div>
+                    <br>
+                    <div class="attribute_pair">
+                        <label class="attribute_lbl" for="insert_nname">Nickname</label> 
+                        <input type="text" id="insert_nname" ng-model="selectedCar.nickName" class="attribute_value">
+                    </div>
+                    <br>
+                    <div class="attribute_pair">
+                        <label class="attribute_lbl" for="insert_vin">Vin #</label> 
+                        <input type="text" id="insert_vin" ng-model="selectedCar.vin" class="attribute_value">
+                    </div>
+                </div>
+                <br>
+                <div class="cancel_btn" ng-click="car_insert_cancel()">Cancel</div>
+                <div class="save_btn" ng-click="confirm_insertion()">Save</div>
+            </div>
+            <div ng-show="!dashboard_view && service_editing" class="detail_view">
+                <h1>Service Editing View</h1>
+                <div class="content_container">
+                    <div class="attribute_pair">
+                        <label class="attribute_lbl" for="edit_type">Type</label> 
+                        <input type="text" id="edit_type" ng-model="selectedService.type" class="attribute_value">
+                    </div>
+                    <br>
+                    <div class="attribute_pair">
+                        <label class="attribute_lbl" for="edit_shop">Shop</label> 
+                        <input type="text" id="edit_shop" ng-model="selectedService.shop" class="attribute_value">
+                    </div>
+                    <br>
+                    <div class="attribute_pair">
+                        <label class="attribute_lbl" for="edit_cost">Cost</label> 
+                        <input type="text" id="edit_cost" ng-model="selectedService.cost" class="attribute_value">
+                    </div>
+                    <br>
+                    <div class="attribute_pair">
+                        <label class="attribute_lbl" for="edit_service_date">Service Date</label>
+                        <input type="text" id="edit_service_date" ng-model="selectedService.service_date" class="attribute_value">
+                    </div>
+                    <br>
+                    <div class="attribute_pair">
+                        <label class="attribute_lbl" for="edit_vin">Vin #</label> 
+                        <label id="lbl_vin" class="attribute_value">{{selectedService.vin}}</label>
+                    </div>
+                </div>
+                <br>
+                <div class="cancel_btn" ng-click="service_view_cancel()">Cancel</div>
+                <div class="save_btn" ng-click="service_edit_save()">Save</div>
+            </div>
+            <div ng-show="!dashboard_view && service_inserting" class="detail_view">
+                <h1>Service Insert View</h1>
+                <div class="content_container">
+                    <div class="attribute_pair">
+                        <label class="attribute_lbl" for="insert_type">Type</label> 
+                        <input type="text" id="insert_type" ng-model="selectedService.type" class="attribute_value">
+                    </div>
+                    <br>
+                    <div class="attribute_pair">
+                        <label class="attribute_lbl" for="insert_shop">Shop</label> 
+                        <input type="text" id="insert_shop" ng-model="selectedService.shop" class="attribute_value">
+                    </div>
+                    <br>
+                    <div class="attribute_pair">
+                        <label class="attribute_lbl" for="insert_cost">Cost</label> 
+                        <input type="text" id="insert_cost" ng-model="selectedService.cost" class="attribute_value">
+                    </div>
+                    <br>
+                    <div class="attribute_pair">
+                        <label class="attribute_lbl" for="insert_service_date">Service Date</label>
+                        <input type="text" id="insert_service_date" ng-model="selectedService.service_date" class="attribute_value">
+                    </div>
+                    <br>
+                    <div class="attribute_pair">
+                        <label class="attribute_lbl" for="edit_vin">Vin #</label> 
+                        <label class="attribute_value">{{selectedService.vin}}</label>
+                    </div>
+                </div>
+                <br>
+                <div class="cancel_btn" ng-click="service_insert_cancel()">Cancel</div>
+                <div class="save_btn" ng-click="confirm_service_insertion()">Save</div>
+            </div>
+        </div>
+    </body>
+    <script src="js/angular.js"></script>
+    <script type="text/javascript" src="js/dashboard.js"></script>
+</html>
